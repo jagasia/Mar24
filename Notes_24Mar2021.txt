@@ -1,0 +1,145 @@
+Spring 
+	JdbcTemplate
+	Spring dao
+	Hibernate Template
+	Hibernate Dao Support
+
+
+	
+1) in pom.xml, add the following dependencies
+			<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.2.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>5.2.7.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>5.2.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.ojdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+------------------------------------------------
+2) JdbcTemplate has a dependency called "DriverManagerDataSource"
+
+	DriverManagerDataSource is an opportunity for us to provide our
+		driver
+		url
+		username
+		password
+	informations to the JdbcTemplate
+
+3) We can configure this dmds in bean.xml
+
+4) Jdbc Template will be injected with the dmds in bean.xml
+
+5) We create a Dao class 
+	CREATE, READ, UPDATE, DELETE methods 
+
+	each of these CRUD methods require "jt" (JdbcTemplate)
+	so, jt is our dependency. Since we have configured jt in our bean.xml, we can auto wire it in dao.
+
+---------------------------------------------
+Task:
+	Create the following classes:
+		Branch
+		BranchDao
+			dependency:		JdbcTemplate
+			create, read, update, delete
+
+	in bean.xml
+		configure the following:
+		DriverManagerDataSource
+		JdbcTemplate
+		BranchDao
+
+	use autowired
+
+	App.java
+		test the Dao methods
+
+
+-------------------------------------------------------------------
+
+
+Task:
+1) create a new project 
+	mar-24-jdbc-dao-support
+2) use same dependencies
+3) copy 
+	Entity class, Row mapper impl, bean.xml from previous project
+4) Create a dao class that extends JdbcDaoSupport
+5) In all CRUD methods, 
+		getJdbcTemplate() and complete the tasks
+6) In bean.xml
+	define bean for dmds
+	define bean for Dao class with autowire by type
+7) Test the application using App.java main method
+-----------------------------------------------------------------------
+
+Hibernate Template depends on LocalSessionFactory
+LocalSessionFactory depends on DriverManagerDataSource
+
+----------------------------------
+Task:
+Create a new project
+	mar-24-hibernate-template
+2) add dependencies for
+	spring context
+	spring context support
+	spring orm
+	hibernate core
+	objdbc
+
+3) use @Entity, @Id annotations in entity class
+4) in dao class, use HibernateTemplate as a dependency
+5) define the following in bean.xml
+	tx schema
+	tx: annotation driven
+	dmds
+	session factory
+	transaction manager
+	hibernate template
+	dao
+
+6) create all CRUD methods in dao class
+7) test the application in App
+
+-----------------------------------
+Now that we have learnt to use
+	JdbcTemplate
+	JdbcDaoSupport			
+	HibernateTemplate
+
+Activity:
+	HibernateDaoSupport
+
+	identify how to use HibernateDaoSupport
+Task:
+	Use HibernateDaoSupport and do the CRUD operations on the same entity in a new project
+
+1) create the dao class that extends HibernateDaoSupport
+2) define the dao in bean.xml with auto wire
+
+Task:
+	Create a dynamic web project, 
+	convert it to a maven project,
+	use the Hibernate dao support code done in dao 
+	create view and controller
+
